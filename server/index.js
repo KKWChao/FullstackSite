@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import { register } from "./controller/auth.js";
+import { verifyToken } from "./middleware/auth.js";
 
 /* CONFIG */
 const __filename = fileURLToPath(import.meta.url);
@@ -43,6 +44,11 @@ const upload = multer({ storage });
 
 /* ROUTES W/ FILES */
 app.post("/auth/register", upload.single("picture"), register);
+
+/* ROUTES */
+// prefix for login
+// will contain verify token for routes
+app.use("/auth", authRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;

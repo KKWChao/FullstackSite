@@ -9,8 +9,8 @@ import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
 import { register } from "./controller/auth.js";
-import { verifyToken } from "./middleware/auth.js";
 
 /* CONFIG */
 const __filename = fileURLToPath(import.meta.url);

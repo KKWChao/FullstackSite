@@ -15,7 +15,7 @@ const HomePage = () => {
         width="100%"
         padding="2rem 6%"
         display={isNonMobileScreens ? "flex" : "block"}
-        gap="0.5"
+        gap="0.5rem"
         justifyContent="space-between"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
@@ -25,7 +25,8 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          {/* <MyPostWidget picture={picturePath} /> */}
+          {/* <MyPostWidget picturePath={picturePath} />
+          <PostsWidget userId={_id} /> */}
         </Box>
         {isNonMobileScreens && <Box flexBasis="26%"></Box>}
       </Box>

@@ -21,8 +21,8 @@ const UserWidget = ({ userId, picturePath }) => {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
 
-  const getuser = async () => {
-    const response = await fetch(`http://localhost:3001/user/${userId}`, {
+  const getUser = async () => {
+    const response = await fetch(`http://localhost:3001/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -31,14 +31,12 @@ const UserWidget = ({ userId, picturePath }) => {
   };
 
   useEffect(() => {
-    getuser();
+    getUser();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
     return null;
   }
-
-  // should create loading
 
   const {
     firstName,
@@ -53,7 +51,6 @@ const UserWidget = ({ userId, picturePath }) => {
   return (
     <WidgetWrapper>
       {/* FIRST ROW */}
-
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
@@ -75,7 +72,7 @@ const UserWidget = ({ userId, picturePath }) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            {/* <Typography color={medium}>{friends.length} friends</Typography> */}
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />
@@ -84,13 +81,12 @@ const UserWidget = ({ userId, picturePath }) => {
       <Divider />
 
       {/* SECOND ROW */}
-
       <Box p="1rem 0">
         <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
           <LocationOnOutlined fontSize="large" sx={{ color: main }} />
           <Typography color={medium}>{location}</Typography>
         </Box>
-        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+        <Box display="flex" alignItems="center" gap="1rem">
           <WorkOutlineOutlined fontSize="large" sx={{ color: main }} />
           <Typography color={medium}>{occupation}</Typography>
         </Box>
@@ -102,13 +98,13 @@ const UserWidget = ({ userId, picturePath }) => {
       <Box p="1rem 0">
         <FlexBetween mb="0.5rem">
           <Typography color={medium}>Who's viewed your profile</Typography>
-          <Typography color={medium} fontWeight="500">
+          <Typography color={main} fontWeight="500">
             {viewedProfile}
           </Typography>
         </FlexBetween>
         <FlexBetween>
           <Typography color={medium}>Impressions of your post</Typography>
-          <Typography color={medium} fontWeight="500">
+          <Typography color={main} fontWeight="500">
             {impressions}
           </Typography>
         </FlexBetween>

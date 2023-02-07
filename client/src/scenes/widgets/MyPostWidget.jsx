@@ -1,7 +1,7 @@
 import {
   EditOutlined,
   DeleteOutlined,
-  AttacheFileOutlined,
+  AttachFileOutlined,
   GifBoxOutlined,
   ImageOutlined,
   MicOutlined,
@@ -139,7 +139,7 @@ const MyPostWidget = ({ picturePath }) => {
             </FlexBetween>
 
             <FlexBetween gap="0.25rem">
-              <AttacheFileOutlined sx={{ color: mediumMain }} />
+              <AttachFileOutlined sx={{ color: mediumMain }} />
               <Typography color={mediumMain}>Attachment</Typography>
             </FlexBetween>
 

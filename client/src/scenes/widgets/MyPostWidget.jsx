@@ -17,8 +17,8 @@ import {
   IconButton,
   useMediaQuery,
 } from "@mui/material";
-import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import Dropzone from "react-dropzone";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
@@ -33,7 +33,7 @@ const MyPostWidget = ({ picturePath }) => {
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-  const isNonMobileScreens = useMediaQuery("(min-width:100px)");
+  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
@@ -42,8 +42,8 @@ const MyPostWidget = ({ picturePath }) => {
     formData.append("userId", _id);
     formData.append("description", post);
     if (image) {
-      formData.append("piture", image);
-      formData.append("piturePath", image.name);
+      formData.append("picture", image);
+      formData.append("picturePath", image.name);
     }
 
     const response = await fetch(`http://localhost:3001/posts`, {
@@ -51,7 +51,6 @@ const MyPostWidget = ({ picturePath }) => {
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
-
     const posts = await response.json();
     dispatch(setPosts({ posts }));
     setImage(null);
@@ -63,8 +62,9 @@ const MyPostWidget = ({ picturePath }) => {
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />
         <InputBase
-          placeholder="Whats on your mind ..."
+          placeholder="What's on your mind..."
           onChange={(e) => setPost(e.target.value)}
+          value={post}
           sx={{
             width: "100%",
             backgroundColor: palette.neutral.light,
@@ -96,7 +96,7 @@ const MyPostWidget = ({ picturePath }) => {
                 >
                   <input {...getInputProps()} />
                   {!image ? (
-                    <p>Add Image</p>
+                    <p>Add Image Here</p>
                   ) : (
                     <FlexBetween>
                       <Typography>{image.name}</Typography>
@@ -105,7 +105,10 @@ const MyPostWidget = ({ picturePath }) => {
                   )}
                 </Box>
                 {image && (
-                  <IconButton onClick={() => setImage(null)}>
+                  <IconButton
+                    onClick={() => setImage(null)}
+                    sx={{ width: "15%" }}
+                  >
                     <DeleteOutlined />
                   </IconButton>
                 )}
@@ -114,19 +117,15 @@ const MyPostWidget = ({ picturePath }) => {
           </Dropzone>
         </Box>
       )}
-      <Divider
-        sx={{
-          margin: "1.25rem",
-        }}
-      />
+
+      <Divider sx={{ margin: "1.25rem 0" }} />
+
       <FlexBetween>
         <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
           <ImageOutlined sx={{ color: mediumMain }} />
           <Typography
             color={mediumMain}
-            sx={{
-              "&:hover": { cursor: "pointer", color: medium },
-            }}
+            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
           >
             Image
           </Typography>

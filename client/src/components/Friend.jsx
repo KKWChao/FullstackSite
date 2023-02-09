@@ -11,7 +11,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.friends);
+  const friends = useSelector((state) => state.user.friends);
 
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
@@ -42,8 +42,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         <UserImage image={userPicturePath} size="55px" />
         <Box
           onClick={() => {
-            navigate(`/profile${friendId}`);
-            // hacky way to fix navigation bug
+            navigate(`/profile/${friendId}`);
             navigate(0);
           }}
         >
@@ -52,8 +51,10 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             variant="h5"
             fontWeight="500"
             sx={{
-              "&:hover": palette.primary.light,
-              cursor: "pointer",
+              "&:hover": {
+                color: palette.primary.light,
+                cursor: "pointer",
+              },
             }}
           >
             {name}
@@ -65,10 +66,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
       </FlexBetween>
       <IconButton
         onClick={() => patchFriend()}
-        sx={{
-          backgroundColor: primaryLight,
-          p: "0.6rem",
-        }}
+        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
         {isFriend ? (
           <PersonRemoveOutlined sx={{ color: primaryDark }} />

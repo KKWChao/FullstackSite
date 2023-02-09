@@ -12,14 +12,12 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const { userId } = useParams();
   const token = useSelector((state) => state.token);
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      mthod: "GET",
-      header: {
-        Authorization: `Bearer ${token}`,
-      },
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
     setUser(data);
@@ -46,7 +44,6 @@ const ProfilePage = () => {
           <Box m="2rem 0" />
           <FriendListWidget userId={userId} />
         </Box>
-
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
